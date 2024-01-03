@@ -1,0 +1,7 @@
+{% for lyric in lyrics %}
+    <div class="lyric">
+        <h2>{{ lyric.song }}</h2>
+        <p>曲ID:{{ lyric.id}}</p>
+        <p>{{ lyric.song_text|safe }}</p>
+    </div>
+{% endfor %}

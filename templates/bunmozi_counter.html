@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head prefix="og: http://ogp.me/ns#">
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-QS37D1BXX3"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-QS37D1BXX3');
+        </script>
+        
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6230893182504255"
+             crossorigin="anonymous"></script>
+
+    <meta property="og:title" content="ブン文字カウンター" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="ブン文字カウンター" />
+    <meta property="og:url" content="https://www.aisakkyoku.com/bunmozi" />
+    <meta property="og:site_name" content="ブン文字カウンター" />
+    <meta property="og:image" content="https://www.aisakkyoku.com/static/space.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ブン文字カウンター-文章ごとの文字数をカウントできるツール-</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <!-- Favicon-->
+      <link rel="icon" type="image/png" href="/static/aititle_logo_sukashi.png">
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="/static/css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="/aithumb"><img src="/static/aititle_logo_sukashi.png" style="width:20px;">ブン文字カウンター</a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                </div>
+            </div>
+        </nav>
+
+
+        <section class="py-5 text-center">
+            <div class="container px-4 px-lg-5 my-2">
+                <h1 class="display-5 fw-bolder">ブン文字カウンター</h1>
+                <p class="lead">文章を入力すると文章ごと文字数をカウント<br>文が長すぎたり短すぎたりするの防ぎます</p>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <form class="form-subscribe" id="contactForm" action="/counter" method="post" enctype="multipart/form-data">
+                            <div class="col">
+                                <textarea maxlength="10000" minlength="2" rows="100" class="form-control form-control-lg" id="pageText" placeholder="文章を入力" name="input_text" required></textarea>
+                            </div>
+                            <div class="row">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-6">
+                        <div id="results"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+<style>
+    @media (max-width: 767px) {
+    textarea#pageText {
+        height: auto; /* 高さを自動にしてrowsに依存させる */
+    }
+}
+</style>
+        
+<script>
+    document.getElementById('pageText').addEventListener('input', function() {
+        var input_text = this.value;
+        var sentences = input_text.split('。').filter(sentence => sentence.trim() !== '');
+        var totalChars = input_text.length;
+
+        // 文字数が330文字以上であれば、テキストエリアの文字サイズを小さくする
+        if (totalChars >= 330) {
+            this.style.fontSize = 'medium';
+        } else {
+            this.style.fontSize = 'medium'; // または元のサイズに合わせた値
+        }
+        
+        var summary = `総文字数: ${totalChars}`;
+        
+        var startPos = 0;
+        var results = sentences.map((sentence, index) => {
+            var length = sentence.length;
+            var color = (length <= 30) ? 'blue' : (length >= 60) ? 'red' : 'black';
+            var endPos = startPos + length;
+            var result = `<span style="color:${color}" onmouseover="highlight(${startPos}, ${endPos})">${index + 1}文目: ${sentence} - ${length} 文字</span>`;
+            startPos += length + 1; // 1 is added for the '。' character
+            return result;
+        }).join("<br>");
+
+        results = summary + '<br><br>' + results;
+
+        document.getElementById('results').innerHTML = results;
+    });
+
+    function highlight(start, end) {
+        var textarea = document.getElementById('pageText');
+        textarea.focus();
+        textarea.selectionStart = start;
+        textarea.selectionEnd = end;
+    }
+
+    window.addEventListener('resize', adjustTextareaRows);
+window.addEventListener('load', adjustTextareaRows);
+
+function adjustTextareaRows() {
+    var textarea = document.getElementById('pageText');
+    if (window.innerWidth <= 767) {
+        textarea.rows = 5; // スマホの場合、rowsを10に設定
+    } else {
+        textarea.rows = 100; // それ以外の場合、rowsを100に設定
+    }
+}
+
+</script>
+
+
+                </div>
+            </div>
+        </section>
+<section>
+<iframe src="/seita" width="100%" height="900px" frameborder="0"></iframe>
+</section>
+    </body>
+
+
+</html>

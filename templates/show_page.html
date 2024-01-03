@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head prefix="og: http://ogp.me/ns#">
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-QS37D1BXX3"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-QS37D1BXX3');
+        </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6230893182504255"
+    crossorigin="anonymous"></script>
+
+<meta property="og:title" content="AIサッキョク" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="AIサッキョク-今すぐAIで簡単に作詞-" />
+<meta property="og:url" content="https://www.aisakkyoku.com/" />
+<meta property="og:site_name" content="AIサッキョク" />
+<meta property="og:image" content="https://www.aisakkyoku.com/static/example_one.png" />
+
+<meta name=“twitter:card” content=“summary_large_image” />
+<meta name=“twitter:site” content=“@naasee613“ />
+<meta name=“twitter:title” content=“AIサッキョク“ />
+<meta name=“twitter:description” content=“AIサッキョク-今すぐAIで簡単に作詞-” />
+<meta name=“twitter:image” content=“https://www.aisakkyoku.com/static/example_one.png“ />
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>みんなの歌詞 by AIサッキョク</title>
+    <style>
+        body {
+            background-color: #343a40;
+            color: #fff;
+            padding-top: 80px; 
+        }
+        #lyrics-container {
+            width: 80%;
+            margin: auto;
+        }
+        .lyric {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        #loading-indicator {
+    display: none;
+    text-align: center;
+    margin: 20px 0;
+}
+#loading-spinner {
+    border: 5px solid rgba(255, 255, 255, 0.3); /* 外側のボーダーを透明に */
+    border-top: 5px solid #fff; /* 上部のボーダーを白に */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 0.5s linear infinite; /* 回転速度を調整 */
+    margin: 0 auto;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+    </style>
+</head>
+    <!-- Navigation-->
+    <nav class="navbar navbar-light bg-light static-top fixed-top">
+        <div class="container text-center">
+            <a class="navbar-brand" href="/"><img src="./static/logo_sukashi.png" class="logo_image" width="50%" height="50%"></a>
+        </div>
+    </nav>
+
+<body class="bg-dark text-white">
+    <h1 class="text-center">みんなの歌詞</h1>
+    <br>
+    <br>
+    <div id="lyrics-container">
+        {% for lyric in lyrics %}
+            <div class="lyric">
+                <h3>{{ lyric.song }}</h3>
+                <p>曲ID:{{ lyric.id}}</p>
+                <p>{{ lyric.song_text|safe }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="loading-indicator">
+        <div id="loading-spinner"></div>
+        <p>Loading more songs...</p>
+    </div>
+
+    <script>
+        var page = 1;
+        var isLoading = false;
+
+        $(window).on('scroll', function() {
+            if($(window).scrollTop() + $(window).height() >= $(document).height() - 100 && !isLoading) {
+                isLoading = true;
+                $("#loading-indicator").show();
+
+                $.get("/show_page?page=" + page, function(data) {
+                    $("#lyrics-container").append(data);
+                    page++;
+                    isLoading = false;
+                    $("#loading-indicator").hide();
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
